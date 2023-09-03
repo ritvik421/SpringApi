@@ -22,7 +22,9 @@ public class BookService {
 
     public List<Book> getAllBooks() {
 //    	System.out.println("Hi");
-        return bookRepository.findAll();
+        List<Book> books= bookRepository.findAll();
+//        System.out.println("Getting data from DB : "+ books);
+        return books;
     }
 
     public List<Book> getBooksByGenre(@RequestParam String genre) {
