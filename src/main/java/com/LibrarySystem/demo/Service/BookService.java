@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,12 +21,17 @@ public class BookService {
     private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private RestTemplate restTemplate ;
 
     public List<Book> getAllBooks() {
 //    	System.out.println("Hi");
-        List<Book> books= bookRepository.findAll();
+//        List<Book> books= bookRepository.findAll();
+
+        return restTemplate.getForObject("http://localhost:8082/api/books/books", List.class) ;
+
 //        System.out.println("Getting data from DB : "+ books);
-        return books;
+//        return books.collectList().block();
     }
 
     public List<Book> getBooksByGenre(@RequestParam String genre) {
